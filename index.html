@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rabt Naturals – Know Your Skin | AI Skin Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  /* Exact logo teal */
+  --teal:  #1A9BA0;
+  --teal2: #157F84;
+  --teal3: #0E6368;
+  --teal4: #A8DADC;
+  --teal5: #D4F0F2;
+  --teal6: #EBF9FA;
+
+  --white: #FFFFFF;
+  --off:   #F8FAFA;
+  --cream: #F4F8F8;
+  --border:#E0F0F1;
+
+  --ink:   #0A1414;
+  --ink2:  #1A2828;
+  --muted: #4A6464;
+  --light: #8AACAC;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:12px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+nav.up{box-shadow:0 4px 24px rgba(26,155,160,.1);}
+.nav-logo img{height:38px;object-fit:contain;}
+.nav-cta{
+  background:var(--teal);color:#fff;border:none;border-radius:100px;
+  padding:11px 22px;font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;
+  box-shadow:0 4px 18px rgba(26,155,160,.3);
+}
+.nav-cta:hover{background:var(--teal2);transform:translateY(-1px);box-shadow:0 8px 28px rgba(26,155,160,.4);}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse 90% 70% at 85% 15%, rgba(26,155,160,.12) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 10% 80%, rgba(168,218,220,.2) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(212,240,242,.15) 0%, transparent 60%),
+    var(--white);
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;
+  padding:100px 20px 60px;position:relative;overflow:hidden;
+}
+/* subtle grid pattern */
+.hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(26,155,160,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,155,160,.04) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal6);border:1px solid rgba(26,155,160,.25);
+  border-radius:100px;padding:8px 18px;margin-bottom:28px;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal2);font-weight:600;position:relative;z-index:1;
+  opacity:0;animation:fadeUp .7s .1s ease-out forwards;
+}
+.bdot{width:6px;height:6px;background:var(--teal);border-radius:50%;animation:blink 2s infinite;}
+
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,11vw,80px);
+  font-weight:500;line-height:1.05;
+  color:var(--ink);max-width:660px;margin:0 auto 10px;
+  letter-spacing:-.02em;position:relative;z-index:1;
+  opacity:0;animation:fadeUp .9s .25s ease-out forwards;
+}
+.hero-h1 .t{color:var(--teal);}
+.hero-h1 em{font-style:italic;}
+
+.hero-tag{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:clamp(16px,4vw,22px);
+  color:var(--muted);font-weight:300;margin-bottom:22px;
+  position:relative;z-index:1;
+  opacity:0;animation:fadeUp .9s .38s ease-out forwards;
+}
+
+.hero-sub{
+  font-size:15px;color:var(--muted);line-height:1.8;
+  max-width:420px;margin:0 auto 40px;font-weight:300;
+  position:relative;z-index:1;
+  opacity:0;animation:fadeUp .9s .5s ease-out forwards;
+}
+.hero-actions{
+  display:flex;flex-direction:column;align-items:center;gap:13px;
+  position:relative;z-index:1;
+  opacity:0;animation:fadeUp .9s .65s ease-out forwards;
+}
+.btn-main{
+  display:inline-flex;align-items:center;gap:13px;
+  background:var(--teal);color:#fff;text-decoration:none;
+  padding:18px 42px;border-radius:100px;
+  font-size:14px;font-weight:600;letter-spacing:.05em;
+  transition:all .35s;box-shadow:0 14px 44px rgba(26,155,160,.32);
+}
+.btn-main:hover{background:var(--teal2);transform:translateY(-3px);box-shadow:0 20px 56px rgba(26,155,160,.4);}
+.btn-main .arr{
+  width:26px;height:26px;background:rgba(255,255,255,.18);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:12px;transition:transform .3s;
+}
+.btn-main:hover .arr{transform:translateX(5px);}
+.hero-note{font-size:11px;color:var(--light);letter-spacing:.05em;}
+.hero-note::before{content:'✦  ';color:var(--teal4);}
+
+/* HERO VISUAL */
+.hero-vis{
+  margin-top:52px;position:relative;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;z-index:1;
+  opacity:0;animation:fadeUp 1s .85s ease-out forwards;
+}
+.orb-wrap{width:230px;height:230px;display:flex;align-items:center;justify-content:center;position:relative;}
+.orb-spin{
+  position:absolute;inset:-5px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--teal5),var(--teal),var(--teal4),var(--teal5));
+  animation:spin 7s linear infinite;
+}
+.orb-body{
+  width:218px;height:218px;border-radius:50%;z-index:1;
+  background:radial-gradient(ellipse at 35% 30%, var(--teal5), var(--teal4) 40%, var(--teal) 75%, var(--teal3));
+  box-shadow:0 24px 72px rgba(26,155,160,.4),inset 0 -12px 30px rgba(0,0,0,.1),inset 0 8px 20px rgba(255,255,255,.2);
+  position:relative;overflow:hidden;
+}
+.orb-shine{position:absolute;top:12%;left:18%;width:34%;height:24%;background:rgba(255,255,255,.35);border-radius:50%;filter:blur(12px);}
+.orb-logo-inner{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:70px;height:70px;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+}
+.orb-logo-inner img{width:64px;height:64px;object-fit:contain;filter:brightness(0) invert(1);opacity:.55;}
+.orb-scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);animation:scan 3s ease-in-out infinite;z-index:3;}
+.oring{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%);animation:breathe 4s ease-in-out infinite;}
+.oring.r1{width:268px;height:268px;border:1px solid rgba(26,155,160,.2);}
+.oring.r2{width:318px;height:318px;border:1px dashed rgba(26,155,160,.12);animation-delay:.9s;}
+.oring.r3{width:368px;height:368px;border:1px solid rgba(26,155,160,.06);animation-delay:1.8s;}
+
+.fc{
+  position:absolute;background:rgba(255,255,255,.95);
+  border:1px solid rgba(26,155,160,.2);border-radius:100px;
+  padding:6px 13px;font-size:9px;font-weight:700;
+  color:var(--teal2);letter-spacing:.05em;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(26,155,160,.12);
+  animation:floatUp 5s ease-in-out infinite;z-index:4;
+}
+.fc.c1{top:-10px;left:-20px;animation-delay:0s;}
+.fc.c2{top:28px;right:-54px;animation-delay:1.2s;}
+.fc.c3{bottom:18px;left:-42px;animation-delay:2.4s;}
+.fc.c4{bottom:-8px;right:-20px;animation-delay:3.6s;}
+
+.hstats{display:flex;gap:30px;margin-top:32px;}
+.hs{text-align:center;}
+.hs-n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--teal);font-weight:500;line-height:1;}
+.hs-l{font-size:9px;color:var(--light);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}
+
+/* ─── MARQUEE ─── */
+.mq{background:var(--teal);padding:14px 0;overflow:hidden;}
+.mq-track{display:flex;gap:44px;animation:marquee 18s linear infinite;white-space:nowrap;flex-shrink:0;align-items:center;}
+.mq-item{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:10px;}
+.mq-item .dot{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;}
+
+/* ─── SHARED ─── */
+section{padding:76px 20px;}
+.stag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.stag::before{content:'';width:22px;height:2px;background:var(--teal);border-radius:2px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,7vw,50px);font-weight:500;line-height:1.12;color:var(--ink);margin-bottom:14px;letter-spacing:-.01em;}
+h2 em{font-style:italic;color:var(--teal);}
+.sdesc{font-size:15px;color:var(--muted);line-height:1.8;max-width:520px;font-weight:300;}
+
+/* ─── BRAND / FOUNDERS ─── */
+.brand-sec{background:var(--white);}
+.founders{display:flex;flex-direction:column;gap:14px;margin-top:36px;}
+.fcard{
+  border-radius:22px;padding:24px;position:relative;overflow:hidden;
+  opacity:0;transform:translateY(18px);transition:all .5s;
+}
+.fcard.in{opacity:1;transform:none;}
+.fcard.f1{background:linear-gradient(135deg,#E6F8F9,#C0EBEE);}
+.fcard.f2{background:linear-gradient(135deg,#FBF8EF,#F0E8D0);}
+.fcard.f3{background:linear-gradient(135deg,#EFF0FB,#D0D4F0);}
+.fcard::after{content:'';position:absolute;top:-28px;right:-28px;width:110px;height:110px;border-radius:50%;opacity:.2;}
+.fcard.f1::after{background:var(--teal);}
+.fcard.f2::after{background:#C8A040;}
+.fcard.f3::after{background:#5060C0;}
+.ftop{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.fav{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;}
+.fav.a{background:linear-gradient(135deg,var(--teal5),var(--teal4));color:var(--teal3);}
+.fav.r{background:linear-gradient(135deg,#F8EDD0,#E8C870);color:#7A5000;}
+.fav.t{background:linear-gradient(135deg,#D0D8F8,#A0B0E8);color:#2A3880;}
+.fname{font-size:16px;font-weight:700;color:var(--ink);}
+.frole{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.03em;}
+.fquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--ink2);line-height:1.65;}
+
+/* values */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
+.vcard{border-radius:18px;padding:20px 16px;opacity:0;transform:translateY(14px);transition:all .4s;}
+.vcard.in{opacity:1;transform:none;}
+.vcard.v1{background:linear-gradient(135deg,#E6F8F9,#C8ECEE);}
+.vcard.v2{background:linear-gradient(135deg,#FBF8EF,#F0E8C8);}
+.vcard.v3{background:linear-gradient(135deg,#EFF0FB,#D0D8F8);}
+.vcard.v4{background:linear-gradient(135deg,#F0FBF0,#C8E8C8);}
+.vi{font-size:24px;margin-bottom:8px;}
+.vt{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.vd{font-size:11px;color:var(--muted);line-height:1.55;}
+
+/* ─── CONCEPT DARK ─── */
+.concept-sec{background:var(--teal3);position:relative;overflow:hidden;}
+.concept-sec::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 70%);}
+.concept-sec .stag{color:var(--teal5);}
+.concept-sec h2{color:#fff;}
+.concept-sec .sdesc{color:rgba(255,255,255,.55);}
+.grains-g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:28px 0;}
+.grain{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 8px;text-align:center;transition:all .3s;opacity:0;transform:scale(.88);}
+.grain.in{opacity:1;transform:none;}
+.grain:hover{background:rgba(255,255,255,.14);transform:translateY(-3px);}
+.ge{font-size:22px;margin-bottom:6px;}
+.gn{font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.act-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ac{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.75);font-weight:500;transition:all .25s;opacity:0;transform:translateX(-10px);}
+.ac.in{opacity:1;transform:none;}
+.ac:hover{background:rgba(255,255,255,.14);}
+.ac::before{content:'';width:4px;height:4px;background:var(--teal4);border-radius:50%;flex-shrink:0;}
+
+/* ─── PRODUCTS ─── */
+.prod-sec{background:var(--off);}
+.pgrid{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
+.pcard{border-radius:20px;padding:20px;display:flex;align-items:center;gap:16px;transition:all .35s;opacity:0;transform:translateX(-14px);background:var(--white);border:1px solid var(--border);}
+.pcard.in{opacity:1;transform:none;}
+.pcard:hover{border-color:var(--teal4);transform:translateX(6px);box-shadow:0 8px 32px rgba(26,155,160,.1);}
+.pimg{width:54px;height:54px;border-radius:14px;object-fit:contain;background:var(--teal6);padding:4px;flex-shrink:0;}
+.pn{font-size:14px;font-weight:700;color:var(--teal2);margin-bottom:3px;}
+.pd{font-size:12px;color:var(--muted);line-height:1.5;}
+.parr{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--teal6);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--teal);flex-shrink:0;transition:all .3s;}
+.pcard:hover .parr{background:var(--teal);color:#fff;}
+
+/* ─── AI ─── */
+.ai-sec{background:var(--white);}
+.ai-card{background:var(--teal3);border-radius:24px;padding:28px;margin-top:32px;position:relative;overflow:hidden;}
+.ai-card::before{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 70%);}
+.ai-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 14px;margin-bottom:14px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal5);font-weight:700;}
+.ai-pill::before{content:'';width:5px;height:5px;background:var(--teal4);border-radius:50%;animation:blink 1.5s infinite;}
+.ai-t{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;font-weight:500;margin-bottom:8px;}
+.ai-s{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:22px;}
+.params-lbl{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.params-g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:26px;}
+.par{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:8px 13px;font-size:11px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:7px;transition:all .25s;opacity:0;transform:scale(.92);}
+.par.in{opacity:1;transform:none;}
+.par:hover{background:rgba(255,255,255,.12);}
+.par::before{content:'';width:4px;height:4px;background:var(--teal4);border-radius:50%;flex-shrink:0;}
+.btn-white{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--teal);text-decoration:none;padding:14px 30px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.05em;transition:all .3s;}
+.btn-white:hover{background:var(--teal5);transform:translateY(-2px);}
+
+/* ─── PROCESS ─── */
+.proc-sec{background:var(--off);}
+.steps{display:flex;flex-direction:column;gap:0;margin-top:40px;}
+.step{display:flex;gap:20px;padding-bottom:36px;position:relative;opacity:0;transform:translateX(-18px);transition:all .5s;}
+.step.in{opacity:1;transform:none;}
+.step:not(:last-child)::after{content:'';position:absolute;left:20px;top:44px;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(26,155,160,.25),transparent);}
+.snum{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;position:relative;z-index:1;}
+.snum.s1{background:var(--teal5);color:var(--teal2);border:1.5px solid var(--teal4);}
+.snum.s2{background:var(--teal);color:#fff;}
+.snum.s3{background:var(--teal2);color:#fff;}
+.snum.s4{background:var(--teal3);color:#fff;}
+.si{font-size:20px;margin-bottom:5px;}
+.st{font-size:15px;font-weight:700;color:var(--teal2);margin-bottom:5px;}
+.sb{font-size:13px;color:var(--muted);line-height:1.75;}
+
+/* ─── PROFILE ─── */
+.profile-sec{background:var(--white);}
+.pf-card{background:var(--white);border:1px solid var(--border);border-radius:22px;padding:26px;margin-top:30px;box-shadow:0 4px 32px rgba(26,155,160,.07);}
+.pf-top{display:flex;align-items:center;gap:13px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:18px;}
+.pf-av{width:48px;height:48px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--teal5),var(--teal4));display:flex;align-items:center;justify-content:center;font-size:20px;}
+.pf-name{font-size:14px;font-weight:700;color:var(--teal);}
+.pf-live{font-size:10px;color:var(--teal);display:flex;align-items:center;gap:5px;margin-top:3px;font-weight:600;}
+.pf-live::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%;animation:blink 2s infinite;}
+.pf-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.pftag{border-radius:100px;padding:6px 14px;font-size:11px;font-weight:600;}
+.pftag.t{background:var(--teal6);color:var(--teal2);}
+.pftag.o{background:#FFF5E6;color:#9A5500;}
+.pf-m{display:flex;flex-direction:column;gap:13px;}
+.pm-top{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:6px;}
+.pm-bar{height:6px;background:rgba(26,155,160,.1);border-radius:100px;overflow:hidden;}
+.pm-fill{height:100%;border-radius:100px;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+.pm-fill.t{background:linear-gradient(90deg,var(--teal4),var(--teal));}
+.pm-fill.o{background:linear-gradient(90deg,#F0C060,#D08000);}
+.pm-fill.b{background:linear-gradient(90deg,#80C8E0,#2080C0);}
+
+/* ─── INGREDIENTS ─── */
+.ing-sec{background:var(--teal3);}
+.ing-sec h2{color:#fff;}
+.ing-sec .sdesc{color:rgba(255,255,255,.5);}
+.ing-list{display:flex;flex-direction:column;gap:1px;margin-top:30px;border-radius:18px;overflow:hidden;}
+.irow{background:rgba(255,255,255,.05);padding:17px 20px;display:flex;align-items:center;gap:14px;transition:all .3s;opacity:0;transform:translateX(-12px);}
+.irow.in{opacity:1;transform:none;}
+.irow:hover{background:rgba(255,255,255,.1);padding-left:26px;}
+.inum{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(255,255,255,.2);width:20px;}
+.iname{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;}
+.isrc{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.04em;}
+.itag{margin-left:auto;border-radius:100px;padding:5px 12px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0;}
+.itag.t1{background:rgba(168,218,220,.2);color:var(--teal4);}
+.itag.t2{background:rgba(240,200,80,.15);color:#F0C060;}
+.itag.t3{background:rgba(180,200,255,.15);color:#A0B8F0;}
+.itag.t4{background:rgba(255,180,120,.15);color:#F0A870;}
+.itag.t5{background:rgba(180,240,200,.15);color:#90D8A8;}
+
+/* ─── TRUST ─── */
+.trust-sec{background:var(--off);}
+.tcards{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
+.tcard{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:22px;display:flex;align-items:center;gap:16px;opacity:0;transform:translateY(14px);transition:all .4s;}
+.tcard.in{opacity:1;transform:none;}
+.tcard:hover{border-color:var(--teal4);}
+.tbadge{width:48px;height:48px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tbadge.a{background:var(--teal6);}
+.tbadge.b{background:#FFFAEC;}
+.tbadge.c{background:#EEF2FF;}
+.tt{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.ts{font-size:11px;color:var(--muted);line-height:1.5;}
+.tsc{margin-left:auto;font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--teal);font-weight:500;flex-shrink:0;}
+
+/* ─── TESTIMONIALS ─── */
+.testi-sec{background:var(--white);}
+.testis{display:flex;flex-direction:column;gap:14px;margin-top:32px;}
+.testi{background:var(--off);border:1px solid var(--border);border-radius:20px;padding:24px;opacity:0;transform:translateY(18px);transition:all .45s;}
+.testi.in{opacity:1;transform:none;}
+.testi:hover{border-color:var(--teal4);background:#fff;box-shadow:0 8px 32px rgba(26,155,160,.08);}
+.tstars{color:#E8A020;letter-spacing:2px;font-size:14px;margin-bottom:12px;}
+.tq{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--teal2);line-height:1.65;margin-bottom:16px;}
+.tfoot{display:flex;align-items:center;gap:12px;}
+.tav{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--teal4);}
+.tav-ph{width:40px;height:40px;border-radius:50%;background:var(--teal5);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--teal);flex-shrink:0;}
+.tname{font-size:13px;font-weight:700;color:var(--ink);}
+.tskin{font-size:10px;color:var(--light);margin-top:2px;}
+.tvbadge{margin-left:auto;background:var(--teal6);border-radius:100px;padding:4px 12px;font-size:9px;font-weight:700;color:var(--teal2);letter-spacing:.05em;}
+
+/* ─── FINAL CTA ─── */
+.cta-sec{
+  padding:96px 20px;text-align:center;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 120%,rgba(26,155,160,.12) 0%,transparent 60%),
+    var(--white);
+}
+.cta-sec h2{color:var(--ink);font-size:clamp(34px,9vw,64px);}
+.cta-sec .sdesc{margin:0 auto 40px;text-align:center;}
+.cta-sec .btn-main{display:inline-flex;}
+.cta-note{margin-top:14px;font-size:11px;color:var(--light);letter-spacing:.05em;}
+
+/* ─── FOOTER ─── */
+footer{background:var(--teal3);padding:52px 20px 28px;}
+.flogo{display:flex;justify-content:center;margin-bottom:12px;}
+.flogo img{height:44px;object-fit:contain;filter:brightness(0) invert(1);}
+.ftagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:20px;}
+.fdesc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.75;max-width:340px;margin:0 auto 28px;text-align:center;}
+.fcta{margin:0 0 32px;text-align:center;}
+.fcta-note{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:14px;}
+.flinks{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:20px;}
+.flinks a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.04em;transition:color .2s;}
+.flinks a:hover{color:var(--teal5);}
+.fcopy{text-align:center;font-size:10px;color:rgba(255,255,255,.15);border-top:1px solid rgba(255,255,255,.08);padding-top:18px;letter-spacing:.04em;}
+
+/* ─── STICKY ─── */
+.sticky{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(16px);
+  padding:11px 20px 13px;border-top:1px solid var(--border);
+  box-shadow:0 -6px 32px rgba(26,155,160,.1);
+  transition:transform .35s,opacity .35s;
+}
+.sticky a{
+  display:block;text-align:center;background:var(--teal);color:#fff;
+  padding:14px;border-radius:12px;text-decoration:none;
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  transition:background .25s;
+}
+.sticky a:hover{background:var(--teal2);}
+.sticky-note{text-align:center;font-size:9px;color:var(--light);margin-top:5px;letter-spacing:.06em;}
+.sticky-note::before{content:'✦  ';color:var(--teal4);}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(1.3);}}
+@keyframes breathe{0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(1);}50%{opacity:.45;transform:translate(-50%,-50%) scale(1.05);}}
+@keyframes scan{0%{top:-2px;opacity:0;}5%{opacity:1;}90%{opacity:.8;}100%{top:218px;opacity:0;}}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes floatUp{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+body{padding-bottom:68px;}
+
+/* ─── VIDEO TESTIMONIAL SLIDER ─── */
+.vt-sec{background:#0A1414;padding:64px 0 52px;overflow:hidden;}
+.vt-head{padding:0 20px;margin-bottom:28px;}
+.vt-head .stag{color:#A8DADC;}
+.vt-head h2{color:#fff;}
+.vt-head .sdesc{color:rgba(255,255,255,.5);}
+.vt-slider{display:flex;gap:14px;padding:0 20px 16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.vt-slider::-webkit-scrollbar{display:none;}
+.vt-card{flex-shrink:0;width:160px;border-radius:20px;overflow:hidden;cursor:pointer;scroll-snap-align:start;transition:width .45s cubic-bezier(.4,0,.2,1),box-shadow .4s;position:relative;background:#1A2828;border:2px solid transparent;}
+.vt-card.active{width:300px;border-color:#1A9BA0;box-shadow:0 20px 60px rgba(26,155,160,.35);}
+.vt-thumb{width:100%;aspect-ratio:9/16;background:#0E6368;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.vt-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block;}
+.vt-card.active .vt-thumb img{transform:scale(1.03);}
+.vt-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(9,20,20,.88) 0%,rgba(9,20,20,.1) 50%,transparent 100%);}
+.vt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:rgba(255,255,255,.15);backdrop-filter:blur(4px);border:2px solid rgba(255,255,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;z-index:2;transition:all .3s;}
+.vt-card.active .vt-play{width:54px;height:54px;font-size:20px;background:#1A9BA0;border-color:#1A9BA0;box-shadow:0 4px 20px rgba(26,155,160,.5);}
+.vt-card:hover .vt-play{transform:translate(-50%,-50%) scale(1.1);}
+.vt-info{position:absolute;bottom:0;left:0;right:0;padding:12px;z-index:2;}
+.vt-name{font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vt-card.active .vt-name{font-size:13px;white-space:normal;}
+.vt-skin{font-size:9px;color:rgba(255,255,255,.55);letter-spacing:.04em;}
+.vt-card.active .vt-skin{font-size:11px;}
+.vt-stars-sm{color:#E8A020;font-size:9px;letter-spacing:1px;margin-bottom:4px;}
+.vt-card.active .vt-stars-sm{font-size:11px;}
+.vt-quote{max-height:0;overflow:hidden;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.78);line-height:1.55;margin-top:0;transition:max-height .4s ease,margin .4s;}
+.vt-card.active .vt-quote{max-height:80px;margin-top:8px;}
+.vt-prod{display:inline-flex;align-items:center;gap:5px;background:rgba(26,155,160,.25);border:1px solid rgba(26,155,160,.4);border-radius:100px;padding:3px 10px;font-size:9px;color:#A8DADC;font-weight:700;letter-spacing:.04em;margin-top:6px;opacity:0;transition:opacity .3s .2s;}
+.vt-card.active .vt-prod{opacity:1;}
+.vt-dots{display:flex;justify-content:center;gap:6px;margin-top:20px;padding:0 20px;}
+.vt-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .3s;}
+.vt-dot.on{width:20px;border-radius:3px;background:#1A9BA0;}
+.vt-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px;}
+.vt-overlay.show{display:flex;}
+.vt-overlay-inner{background:#1A2828;border-radius:24px;width:100%;max-width:360px;overflow:hidden;border:1px solid rgba(26,155,160,.25);position:relative;}
+.vt-overlay-video{width:100%;aspect-ratio:9/16;background:#0E6368;display:flex;align-items:center;justify-content:center;position:relative;}
+.vt-overlay-video img{width:100%;height:100%;object-fit:cover;}
+.vt-overlay-play{position:absolute;width:64px;height:64px;background:#1A9BA0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 8px 32px rgba(26,155,160,.5);animation:vtPulse 2s ease-in-out infinite;}
+.vt-overlay-body{padding:20px;}
+.vt-overlay-stars{color:#E8A020;font-size:14px;letter-spacing:2px;margin-bottom:10px;}
+.vt-overlay-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:14px;}
+.vt-overlay-foot{display:flex;align-items:center;gap:12px;}
+.vt-overlay-av{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #A8DADC;flex-shrink:0;}
+.vt-overlay-av-ph{width:40px;height:40px;border-radius:50%;background:#D4F0F2;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#1A9BA0;flex-shrink:0;}
+.vt-overlay-name{font-size:13px;font-weight:700;color:#fff;}
+.vt-overlay-skin{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
+.vt-close{position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;cursor:pointer;transition:all .25s;border:1px solid rgba(255,255,255,.15);z-index:3;}
+.vt-close:hover{background:rgba(255,255,255,.2);}
+@keyframes vtPulse{0%,100%{box-shadow:0 8px 32px rgba(26,155,160,.5);}50%{box-shadow:0 8px 48px rgba(26,155,160,.8),0 0 0 14px rgba(26,155,160,.12);}}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <img src="https://rabtnaturals.com/images/logo.png" alt="Rabt Naturals"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--teal);">rabt <span style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.1em;">NATURALS</span></span>
+  </div>
+  <a href="https://rabtnaturals.com/skin-analysis" class="nav-cta">Know Your Skin</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-badge"><div class="bdot"></div>India's First Pulses &amp; Grains Skincare</div>
+
+  <h1 class="hero-h1">Where <span class="t">Nature</span><br>Bonds With <em>Skin.</em></h1>
+  <p class="hero-tag">"Rabt" — the timeless bond between skin and nature.</p>
+  <p class="hero-sub">Discover your real skin type with our AI Skin Analysis and receive a personalised routine designed by our Skin Stylists.</p>
+
+  <div class="hero-actions">
+    <a href="https://rabtnaturals.com/skin-analysis" class="btn-main">
+      <span>Know Your Skin</span><div class="arr">→</div>
+    </a>
+    <span class="hero-note">Free · 2 Minutes · 32 Skin Parameters</span>
+  </div>
+
+  <div class="hero-vis">
+    <div class="orb-wrap">
+      <div class="oring r1"></div><div class="oring r2"></div><div class="oring r3"></div>
+      <div class="orb-spin"></div>
+      <div class="orb-body">
+        <div class="orb-shine"></div>
+        <div class="orb-logo-inner">
+          <img src="https://rabtnaturals.com/images/logo.png" alt="">
+        </div>
+        <div class="orb-scan"></div>
+      </div>
+      <div class="fc c1">Oil: Balanced</div>
+      <div class="fc c2">Hydration: 72%</div>
+      <div class="fc c3">Barrier: Strong</div>
+      <div class="fc c4">Score: 78%</div>
+    </div>
+    <div class="hstats">
+      <div class="hs"><div class="hs-n">32</div><div class="hs-l">Parameters</div></div>
+      <div class="hs"><div class="hs-n">2 min</div><div class="hs-l">Analysis</div></div>
+      <div class="hs"><div class="hs-n">100%</div><div class="hs-l">Personalised</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <span class="mq-item"><span class="dot"></span>Pulses &amp; Grains Skincare</span>
+    <span class="mq-item"><span class="dot"></span>AI Skin Analysis</span>
+    <span class="mq-item"><span class="dot"></span>Expert Skin Stylists</span>
+    <span class="mq-item"><span class="dot"></span>Made for Indian Skin</span>
+    <span class="mq-item"><span class="dot"></span>Nature + Science</span>
+    <span class="mq-item"><span class="dot"></span>32 Skin Parameters</span>
+    <span class="mq-item"><span class="dot"></span>Clean Ingredients</span>
+    <span class="mq-item"><span class="dot"></span>Personal Skin Profile</span>
+    <span class="mq-item"><span class="dot"></span>Pulses &amp; Grains Skincare</span>
+    <span class="mq-item"><span class="dot"></span>AI Skin Analysis</span>
+    <span class="mq-item"><span class="dot"></span>Expert Skin Stylists</span>
+    <span class="mq-item"><span class="dot"></span>Made for Indian Skin</span>
+    <span class="mq-item"><span class="dot"></span>Nature + Science</span>
+    <span class="mq-item"><span class="dot"></span>32 Skin Parameters</span>
+    <span class="mq-item"><span class="dot"></span>Clean Ingredients</span>
+    <span class="mq-item"><span class="dot"></span>Personal Skin Profile</span>
+  </div>
+</div>
+
+<!-- ══ BRAND / FOUNDERS ══ -->
+<section class="brand-sec">
+  <div class="stag">Our Story</div>
+  <h2>Indian Roots,<br><em>Modern Science</em></h2>
+  <p class="sdesc">"Rabt" means <em>connection</em> — the timeless bond between skin and nature. We are bringing that ancient wisdom back, powered by modern science.</p>
+<div style="margin-top:52px;">
+    <div class="stag">Brand Values</div>
+    <h2>What We <em>Stand For</em></h2>
+    <div class="vgrid">
+      <div class="vcard v1"><div class="vi">🌿</div><div class="vt">Natural First</div><div class="vd">Centuries-old wisdom of pulses, grains and herbs</div></div>
+      <div class="vcard v2"><div class="vi">🧪</div><div class="vt">Science Backed</div><div class="vd">Clinically tested formulas with modern actives</div></div>
+      <div class="vcard v3"><div class="vi">🤖</div><div class="vt">AI Powered</div><div class="vd">Hyper-personalised analysis across 32 parameters</div></div>
+      <div class="vcard v4"><div class="vi">🇮🇳</div><div class="vt">Made for India</div><div class="vd">Crafted for Indian skin types and climate</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ VIDEO TESTIMONIAL SLIDER ═══ -->
+<section class="vt-sec">
+  <div class="vt-head">
+    <div class="stag">Customer Stories</div>
+    <h2>Real People. <em>Real Results.</em></h2>
+    <p class="sdesc">Watch how Rabt Naturals transformed their skin — in their own words.</p>
+  </div>
+  <div class="vt-slider" id="vtSlider">
+    <div class="vt-card active" data-idx="0" onclick="activateCard(this)">
+      <div class="vt-thumb"><img src="https://rabtnaturals.com/testi2.jpg" alt="Komal" onerror="this.style.display='none'"><div class="vt-play">▶</div></div>
+      <div class="vt-info"><div class="vt-stars-sm">★★★★★</div><div class="vt-name">Komal Singh</div><div class="vt-skin">Acne-Prone · Verified Buyer</div><div class="vt-quote">"My skin is smoother and clearer than ever. I finally feel confident going makeup-free!"</div><div class="vt-prod">🧴 Niacinamide Serum</div></div>
+    </div>
+    <div class="vt-card" data-idx="1" onclick="activateCard(this)">
+      <div class="vt-thumb"><img src="https://rabtnaturals.com/testi1.jpg" alt="Mukul" onerror="this.style.display='none'"><div class="vt-play">▶</div></div>
+      <div class="vt-info"><div class="vt-stars-sm">★★★★★</div><div class="vt-name">Mukul Parmar</div><div class="vt-skin">Dry Hair · Verified Buyer</div><div class="vt-quote">"Soft, shiny, and smells amazing! Highly recommend for anyone with damaged hair."</div><div class="vt-prod">💧 Hydrating Serum</div></div>
+    </div>
+    <div class="vt-card" data-idx="2" onclick="activateCard(this)">
+      <div class="vt-thumb"><img src="https://rabtnaturals.com/testi3.jpg" alt="Somya" onerror="this.style.display='none'"><div class="vt-play">▶</div></div>
+      <div class="vt-info"><div class="vt-stars-sm">★★★★★</div><div class="vt-name">Somya Jain</div><div class="vt-skin">Combination · Verified Buyer</div><div class="vt-quote">"Perfect coverage without feeling heavy. Lasts all day even in humid weather!"</div><div class="vt-prod">✨ Vitamin C Cream</div></div>
+    </div>
+    <div class="vt-card" data-idx="3" onclick="activateCard(this)">
+      <div class="vt-thumb"><img src="https://rabtnaturals.com/testi2.jpg" alt="Priya" onerror="this.style.display='none'"><div class="vt-play">▶</div></div>
+      <div class="vt-info"><div class="vt-stars-sm">★★★★★</div><div class="vt-name">Priya Sharma</div><div class="vt-skin">Oily Skin · Verified Buyer</div><div class="vt-quote">"Oil control is incredible. My T-zone stays matte all day without drying out."</div><div class="vt-prod">🌿 Oats Moisturizer</div></div>
+    </div>
+    <div class="vt-card" data-idx="4" onclick="activateCard(this)">
+      <div class="vt-thumb"><img src="https://rabtnaturals.com/testi1.jpg" alt="Rahul" onerror="this.style.display='none'"><div class="vt-play">▶</div></div>
+      <div class="vt-info"><div class="vt-stars-sm">★★★★★</div><div class="vt-name">Rahul Verma</div><div class="vt-skin">Sensitive · Verified Buyer</div><div class="vt-quote">"Zero irritation. My skin barrier feels stronger than it has in years."</div><div class="vt-prod">☀️ SPF 50+ Sunscreen</div></div>
+    </div>
+    <div class="vt-card" data-idx="5" onclick="activateCard(this)">
+      <div class="vt-thumb"><img src="https://rabtnaturals.com/testi3.jpg" alt="Anjali" onerror="this.style.display='none'"><div class="vt-play">▶</div></div>
+      <div class="vt-info"><div class="vt-stars-sm">★★★★★</div><div class="vt-name">Anjali Mehta</div><div class="vt-skin">Dark Spots · Verified Buyer</div><div class="vt-quote">"My dark spots faded within a month. The AI quiz recommended exactly what I needed."</div><div class="vt-prod">🔬 Alpha Arbutin Serum</div></div>
+    </div>
+  </div>
+  <div class="vt-dots">
+    <div class="vt-dot on" onclick="goToCard(0)"></div>
+    <div class="vt-dot" onclick="goToCard(1)"></div>
+    <div class="vt-dot" onclick="goToCard(2)"></div>
+    <div class="vt-dot" onclick="goToCard(3)"></div>
+    <div class="vt-dot" onclick="goToCard(4)"></div>
+    <div class="vt-dot" onclick="goToCard(5)"></div>
+  </div>
+</section>
+
+<!-- FULLSCREEN OVERLAY -->
+<div class="vt-overlay" id="vtOverlay" onclick="closeOverlay(event)">
+  <div class="vt-overlay-inner">
+    <div class="vt-close" onclick="closeOverlayBtn()">✕</div>
+    <div class="vt-overlay-video">
+      <img id="vtOvImg" src="" alt="">
+      <div class="vt-overlay-play">▶</div>
+    </div>
+    <div class="vt-overlay-body">
+      <div class="vt-overlay-stars">★★★★★</div>
+      <p class="vt-overlay-q" id="vtOvQuote"></p>
+      <div class="vt-overlay-foot">
+        <img class="vt-overlay-av" id="vtOvAv" src="" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="vt-overlay-av-ph" id="vtOvAvPh" style="display:none"></div>
+        <div>
+          <div class="vt-overlay-name" id="vtOvName"></div>
+          <div class="vt-overlay-skin" id="vtOvSkin"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONCEPT ══ -->
+<section class="concept-sec">
+  <div class="stag">What Makes Us Unique</div>
+  <h2 style="color:#fff;">India's First<br>Pulses &amp; Grains<br><em style="color:var(--teal4);">Skincare</em></h2>
+  <p class="sdesc">Ingredients trusted in Indian kitchens for centuries — now scientifically formulated into modern skincare.</p>
+  <div class="grains-g">
+    <div class="grain"><div class="ge">🫘</div><div class="gn">Moong</div></div>
+    <div class="grain"><div class="ge">🌾</div><div class="gn">Masoor</div></div>
+    <div class="grain"><div class="ge">🌿</div><div class="gn">Oats</div></div>
+    <div class="grain"><div class="ge">🍚</div><div class="gn">Rice</div></div>
+    <div class="grain"><div class="ge">🌾</div><div class="gn">Barley</div></div>
+    <div class="grain"><div class="ge">🌾</div><div class="gn">Wheat</div></div>
+    <div class="grain"><div class="ge">🫘</div><div class="gn">Chana</div></div>
+    <div class="grain"><div class="ge">🫘</div><div class="gn">Urad</div></div>
+  </div>
+  <div class="stag" style="color:rgba(255,255,255,.35);margin-bottom:14px;">Combined with Modern Actives</div>
+  <div class="act-row">
+    <div class="ac">Niacinamide</div><div class="ac">Vitamin C</div>
+    <div class="ac">Salicylic Acid</div><div class="ac">Green Tea Extract</div>
+    <div class="ac">Alpha Arbutin</div><div class="ac">Panthenol</div>
+  </div>
+</section>
+
+<!-- ══ PRODUCTS ══ -->
+<section class="prod-sec">
+  <div class="stag">Product Range</div>
+  <h2>Complete Skin <em>Ecosystem</em></h2>
+  <p class="sdesc">A solution for every skin concern — crafted with our unique pulses and science formula.</p>
+  <div class="pgrid">
+    <div class="pcard"><img class="pimg" src="https://rabtnaturals.com/posters/masoorcleansericon.png" alt="Cleanser" onerror="this.src='';this.style.background='var(--teal6)'"><div><div class="pn">Cleansers</div><div class="pd">Grain-based gentle cleansing, skin barrier safe</div></div><div class="parr">→</div></div>
+    <div class="pcard"><img class="pimg" src="https://rabtnaturals.com/posters/moongtonericon.png" alt="Toner" onerror="this.src='';this.style.background='var(--teal6)'"><div><div class="pn">Toners</div><div class="pd">Skin balance, pore tightening and pH restoration</div></div><div class="parr">→</div></div>
+    <div class="pcard"><img class="pimg" src="https://rabtnaturals.com/posters/serumicon.png" alt="Serum" onerror="this.src='';this.style.background='var(--teal6)'"><div><div class="pn">Serums</div><div class="pd">Targeted treatment for acne, pigmentation and brightening</div></div><div class="parr">→</div></div>
+    <div class="pcard"><img class="pimg" src="https://rabtnaturals.com/posters/oatsmoisicon.png" alt="Moisturizer" onerror="this.src='';this.style.background='var(--teal6)'"><div><div class="pn">Moisturizers</div><div class="pd">Deep hydration and barrier protection with pulse extracts</div></div><div class="parr">→</div></div>
+    <div class="pcard"><img class="pimg" src="https://rabtnaturals.com/posters/oatssunscreenicon.png" alt="Sunscreen" onerror="this.src='';this.style.background='var(--teal6)'"><div><div class="pn">Sunscreens</div><div class="pd">Broad spectrum UV protection, lightweight formula</div></div><div class="parr">→</div></div>
+    <div class="pcard"><div class="pimg" style="background:var(--teal6);display:flex;align-items:center;justify-content:center;font-size:22px;">👁️</div><div><div class="pn">Under-Eye Care</div><div class="pd">Targeted treatment for dark circles and puffiness</div></div><div class="parr">→</div></div>
+  </div>
+</section>
+
+<!-- ══ AI ══ -->
+<section class="ai-sec">
+  <div class="stag">AI Intelligence</div>
+  <h2>Know Your Skin.<br><em>Really Know It.</em></h2>
+  <p class="sdesc">Rabt AI analyses 32 skin health parameters with dermatology-grade precision.</p>
+  <div class="ai-card">
+    <div class="ai-pill">AI Skin Analysis Active</div>
+    <div class="ai-t">32 Skin Parameters Analysed</div>
+    <div class="ai-s">A 2-minute quiz is all it takes for our AI to build your complete skin health map.</div>
+    <div class="params-lbl">Analysing the following parameters:</div>
+    <div class="params-g">
+      <div class="par">Oil Balance</div><div class="par">Hydration Level</div>
+      <div class="par">Acne Tendency</div><div class="par">Pigmentation</div>
+      <div class="par">Sensitivity</div><div class="par">Pore Size</div>
+      <div class="par">Skin Texture</div><div class="par">Dark Spots</div>
+      <div class="par">Skin Barrier</div><div class="par">Redness Level</div>
+      <div class="par">Sebum Control</div><div class="par">UV Damage</div>
+      <div class="par">Cell Turnover</div><div class="par">Inflammation</div>
+      <div class="par">Elasticity</div><div class="par">Moisture Barrier</div>
+    </div>
+    <a href="https://rabtnaturals.com/skin-analysis" class="btn-white">Start Free Analysis →</a>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section class="proc-sec">
+  <div class="stag">The Process</div>
+  <h2>Technology + <em>Human Expertise</em></h2>
+  <p class="sdesc">AI precision + Skin Stylist wisdom = your perfect personalised skincare routine.</p>
+  <div class="steps">
+    <div class="step"><div class="snum s1">1</div><div><div class="si">📋</div><div class="st">Complete Your Skin Quiz</div><div class="sb">Share your skin type, concerns, lifestyle and goals in a simple 2-minute quiz. No expertise needed.</div></div></div>
+    <div class="step"><div class="snum s2">2</div><div><div class="si">🤖</div><div class="st">AI Analyses Your Skin Data</div><div class="sb">Rabt AI maps your responses against 32 dermatology parameters — building a complete picture of your skin health.</div></div></div>
+    <div class="step"><div class="snum s3">3</div><div><div class="si">👨‍⚕️</div><div class="st">Skin Stylist Reviews Your Analysis</div><div class="sb">A human expert reviews the AI analysis — adding deeper accuracy and truly personal insight.</div></div></div>
+    <div class="step"><div class="snum s4">4</div><div><div class="si">✨</div><div class="st">You Receive Your Personalised Routine</div><div class="sb">A complete skincare routine built only for your skin — with progress tracking included.</div></div></div>
+  </div>
+</section>
+
+<!-- ══ PROFILE ══ -->
+<section class="profile-sec">
+  <div class="stag">Your Profile</div>
+  <h2>Your Permanent <em>Skin Identity</em></h2>
+  <p class="sdesc">Every user gets a permanent Skin Profile — updated over time, tracking your skin's progress every step of the way.</p>
+  <div class="pf-card">
+    <div class="pf-top">
+      <div class="pf-av">🌿</div>
+      <div><div class="pf-name">Your Skin Profile</div><div class="pf-live">AI Updated · Expert Reviewed</div></div>
+    </div>
+    <div class="pf-tags">
+      <span class="pftag t">Combination Skin</span>
+      <span class="pftag t">Low Sensitivity</span>
+      <span class="pftag o">Acne-Prone</span>
+      <span class="pftag o">Hyperpigmentation</span>
+    </div>
+    <div class="pf-m">
+      <div><div class="pm-top"><span>Hydration Level</span><span style="color:var(--teal)">72%</span></div><div class="pm-bar"><div class="pm-fill t" data-w="72"></div></div></div>
+      <div><div class="pm-top"><span>Oil Balance</span><span style="color:#D08000">58%</span></div><div class="pm-bar"><div class="pm-fill o" data-w="58"></div></div></div>
+      <div><div class="pm-top"><span>Skin Barrier Health</span><span style="color:#2080C0">85%</span></div><div class="pm-bar"><div class="pm-fill b" data-w="85"></div></div></div>
+      <div><div class="pm-top"><span>Overall Skin Score</span><span style="color:var(--teal)">78%</span></div><div class="pm-bar"><div class="pm-fill t" data-w="78"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INGREDIENTS ══ -->
+<section class="ing-sec">
+  <div class="stag" style="color:var(--teal4);">Ingredient Science</div>
+  <h2>Right Ingredient. <em>Right Skin.</em></h2>
+  <p class="sdesc">After your AI skin analysis, we recommend exactly the ingredients your skin needs. Zero guesswork, zero waste.</p>
+  <div class="ing-list">
+    <div class="irow"><div class="inum">01</div><div><div class="iname">Niacinamide</div><div class="isrc">Modern Active</div></div><div class="itag t1">Oil Control</div></div>
+    <div class="irow"><div class="inum">02</div><div><div class="iname">Salicylic Acid</div><div class="isrc">Beta Hydroxy Acid</div></div><div class="itag t4">Acne</div></div>
+    <div class="irow"><div class="inum">03</div><div><div class="iname">Alpha Arbutin</div><div class="isrc">Brightening Agent</div></div><div class="itag t2">Dark Spots</div></div>
+    <div class="irow"><div class="inum">04</div><div><div class="iname">Centella Asiatica</div><div class="isrc">Ayurvedic Herb</div></div><div class="itag t5">Soothing</div></div>
+    <div class="irow"><div class="inum">05</div><div><div class="iname">Panthenol (Vit B5)</div><div class="isrc">Barrier Repair</div></div><div class="itag t3">Barrier</div></div>
+    <div class="irow"><div class="inum">06</div><div><div class="iname">Vitamin C</div><div class="isrc">Antioxidant</div></div><div class="itag t2">Brightening</div></div>
+    <div class="irow"><div class="inum">07</div><div><div class="iname">Green Tea Extract</div><div class="isrc">Natural Antioxidant</div></div><div class="itag t5">Antioxidant</div></div>
+  </div>
+</section>
+
+<!-- ══ TRUST ══ -->
+<section class="trust-sec">
+  <div class="stag">Expert Certified</div>
+  <h2>Skincare You Can <em>Actually Trust</em></h2>
+  <p class="sdesc">Every routine and ingredient combination is verified by Rabt Skin Stylists — before it ever reaches you.</p>
+  <div class="tcards">
+    <div class="tcard"><div class="tbadge a">🎯</div><div><div class="tt">Expert Effectiveness Rating</div><div class="ts">Every routine rated for real-world efficacy based on your skin type</div></div><div class="tsc">9.2</div></div>
+    <div class="tcard"><div class="tbadge b">🧪</div><div><div class="tt">Ingredient Compatibility Score</div><div class="ts">Validated for safe and effective ingredient combinations</div></div><div class="tsc">98%</div></div>
+    <div class="tcard"><div class="tbadge c">🛡️</div><div><div class="tt">Skin Safety Level</div><div class="ts">Checked for sensitivities, allergies and contraindications</div></div><div class="tsc">A+</div></div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testi-sec">
+  <div class="stag">Real Results</div>
+  <h2>Real Skin. <em>Real Transformations.</em></h2>
+  <div class="testis">
+    <div class="testi">
+      <div class="tstars">★★★★★</div>
+      <p class="tq">"I saw a visible difference in my acne within just 3 weeks. Finally, a skincare routine actually built for my skin."</p>
+      <div class="tfoot">
+        <img class="tav" src="https://rabtnaturals.com/testi2.jpg" alt="Komal" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="tav-ph" style="display:none">K</div>
+        <div><div class="tname">Komal Singh</div><div class="tskin">Acne-Prone Skin</div></div>
+        <div class="tvbadge">Verified</div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="tstars">★★★★★</div>
+      <p class="tq">"My skin finally feels balanced. The AI identified issues I had no idea about — and the routine genuinely works."</p>
+      <div class="tfoot">
+        <img class="tav" src="https://rabtnaturals.com/testi3.jpg" alt="Somya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="tav-ph" style="display:none">S</div>
+        <div><div class="tname">Somya Jain</div><div class="tskin">Combination Skin</div></div>
+        <div class="tvbadge">Verified</div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="tstars">★★★★★</div>
+      <p class="tq">"The Skin Stylist review changed everything. It felt like having a personal dermatologist — but actually accessible."</p>
+      <div class="tfoot">
+        <img class="tav" src="https://rabtnaturals.com/testi1.jpg" alt="Mukul" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="tav-ph" style="display:none">M</div>
+        <div><div class="tname">Mukul Parmar</div><div class="tskin">Oily Skin</div></div>
+        <div class="tvbadge">Verified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="cta-sec">
+  <div class="stag" style="justify-content:center;">Start Today</div>
+  <h2>Stop Guessing<br>Your <em>Skincare.</em></h2>
+  <p class="sdesc">Discover what your skin truly needs with a free 2-minute AI analysis — powered by nature and science, reviewed by experts.</p>
+  <a href="https://rabtnaturals.com/skin-analysis" class="btn-main">
+    <span>Know Your Skin — It's Free</span><div class="arr">→</div>
+  </a>
+  <div class="cta-note">No commitment · No signup required · Instant results</div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="flogo">
+    <img src="https://rabtnaturals.com/images/white-logo.png" alt="Rabt Naturals"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-family:'Cormorant Garamond',serif;font-size:26px;color:rgba(255,255,255,.8);">rabt <span style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;">NATURALS</span></span>
+  </div>
+  <div class="ftagline">"Where Nature Bonds With Skin."</div>
+  <div class="fdesc">India's first pulses &amp; grains based skincare — combining centuries of traditional wisdom with modern dermatology science. Made for Indian skin, by Indians.</div>
+  <div class="fcta">
+    <div class="fcta-note">Ready to understand your skin?</div>
+    <a href="https://rabtnaturals.com/skin-analysis" class="btn-main" style="display:inline-flex;font-size:12px;padding:14px 32px;">
+      <span>Start Free Skin Analysis</span><div class="arr">→</div>
+    </a>
+  </div>
+  <div class="flinks">
+    <a href="https://rabtnaturals.com/about">About Us</a>
+    <a href="https://rabtnaturals.com/products">Products</a>
+    <a href="https://rabtnaturals.com/skin-analysis">Skin Analysis</a>
+    <a href="https://rabtnaturals.com/privacy">Privacy</a>
+    <a href="https://rabtnaturals.com/terms">Terms</a>
+    <a href="mailto:support@rabtnaturals.in">Contact</a>
+  </div>
+  <div class="fcopy">© 2025 RABT NATURALS · WHERE NATURE BONDS WITH SKIN · ALL RIGHTS RESERVED</div>
+</footer>
+
+<!-- STICKY -->
+<div class="sticky" id="stk">
+  <a href="https://rabtnaturals.com/skin-analysis">Know Your Skin — Free AI Analysis →</a>
+  <div class="sticky-note">2 minutes · 32 parameters · 100% personalised</div>
+</div>
+
+<script>
+// Nav shadow on scroll
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('up',scrollY>50));
+
+// Scroll reveal animations
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,d=+(el.dataset.delay||0);
+    setTimeout(()=>el.classList.add('in'),d);
+    io.unobserve(el);
+  });
+},{threshold:.1});
+['.vcard','.grain','.ac','.pcard','.par','.step','.irow','.tcard','.testi'].forEach(sel=>{
+  document.querySelectorAll(sel).forEach((el,i)=>{el.dataset.delay=i*70;io.observe(el);});
+});
+
+// Metric bars animation
+const pfCard=document.querySelector('.pf-card');
+if(pfCard){
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      e.target.querySelectorAll('.pm-fill').forEach(f=>setTimeout(()=>{f.style.width=f.dataset.w+'%';},150));
+    });
+  },{threshold:.3}).observe(pfCard);
+}
+
+// Sticky CTA hide near footer
+const stk=document.getElementById('stk');
+if(stk){
+  stk.style.transition='transform .35s,opacity .35s';
+  window.addEventListener('scroll',()=>{
+    const footer=document.querySelector('footer');
+    if(!footer)return;
+    const hide=footer.getBoundingClientRect().top<window.innerHeight+80;
+    stk.style.transform=hide?'translateY(100%)':'';
+    stk.style.opacity=hide?'0':'1';
+  });
+}
+
+// ── VIDEO TESTIMONIAL SLIDER ──
+const vtData=[
+  {img:'https://rabtnaturals.com/testi2.jpg',name:'Komal Singh',skin:'Acne-Prone · Verified Buyer',quote:'"My skin is smoother and clearer than ever. I finally feel confident going makeup-free!"',av:'K'},
+  {img:'https://rabtnaturals.com/testi1.jpg',name:'Mukul Parmar',skin:'Dry Hair · Verified Buyer',quote:'"Soft, shiny, and smells amazing! Highly recommend for anyone with damaged hair."',av:'M'},
+  {img:'https://rabtnaturals.com/testi3.jpg',name:'Somya Jain',skin:'Combination · Verified Buyer',quote:'"Perfect coverage without feeling heavy. Lasts all day even in humid weather!"',av:'S'},
+  {img:'https://rabtnaturals.com/testi2.jpg',name:'Priya Sharma',skin:'Oily Skin · Verified Buyer',quote:'"Oil control is incredible. My T-zone stays matte all day without drying out."',av:'P'},
+  {img:'https://rabtnaturals.com/testi1.jpg',name:'Rahul Verma',skin:'Sensitive · Verified Buyer',quote:'"Zero irritation. My skin barrier feels stronger than it has in years."',av:'R'},
+  {img:'https://rabtnaturals.com/testi3.jpg',name:'Anjali Mehta',skin:'Dark Spots · Verified Buyer',quote:'"My dark spots faded within a month. The AI quiz recommended exactly what I needed."',av:'A'},
+];
+let vtActive=0;
+
+function activateCard(card){
+  const idx=+card.dataset.idx;
+  document.querySelectorAll('.vt-card').forEach(c=>c.classList.remove('active'));
+  card.classList.add('active');
+  vtActive=idx;
+  document.querySelectorAll('.vt-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
+  const slider=document.getElementById('vtSlider');
+  if(slider){
+    const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);
+    slider.scrollTo({left:offset,behavior:'smooth'});
+  }
+}
+
+function goToCard(idx){
+  const cards=document.querySelectorAll('.vt-card');
+  if(cards[idx]) activateCard(cards[idx]);
+}
+
+// Attach play button listeners after DOM ready
+document.querySelectorAll('.vt-card').forEach(card=>{
+  const playBtn=card.querySelector('.vt-play');
+  if(playBtn){
+    playBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      activateCard(card);
+      setTimeout(()=>openOverlay(+card.dataset.idx),200);
+    });
+  }
+});
+
+function openOverlay(idx){
+  const d=vtData[idx];
+  if(!d)return;
+  document.getElementById('vtOvImg').src=d.img;
+  document.getElementById('vtOvQuote').textContent=d.quote;
+  document.getElementById('vtOvAv').src=d.img;
+  document.getElementById('vtOvAvPh').textContent=d.av;
+  document.getElementById('vtOvName').textContent=d.name;
+  document.getElementById('vtOvSkin').textContent=d.skin;
+  const overlay=document.getElementById('vtOverlay');
+  if(overlay){overlay.classList.add('show');document.body.style.overflow='hidden';}
+}
+
+function closeOverlay(e){
+  if(e.target===document.getElementById('vtOverlay')) closeOverlayBtn();
+}
+
+function closeOverlayBtn(){
+  const overlay=document.getElementById('vtOverlay');
+  if(overlay){overlay.classList.remove('show');document.body.style.overflow='';}
+}
+
+// Auto-advance every 5s
+setInterval(()=>goToCard((vtActive+1)%vtData.length),5000);
+</script>
+</body>
+</html>
