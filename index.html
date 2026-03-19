@@ -880,20 +880,20 @@ let vtActive=0;
 
 function activateCard(card){
   const idx=+card.dataset.idx;
-  document.querySelectorAll('.vt-card').forEach(c=>{c.classList.remove('active');const v=c.querySelector('video');if(v){v.pause();v.currentTime=0;}const p=c.querySelector('.vt-play');if(p)p.style.display='';});
+  document.querySelectorAll('.vt-card').forEach(c=>c.classList.remove('active'));
   card.classList.add('active');
   vtActive=idx;
   document.querySelectorAll('.vt-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
   const slider=document.getElementById('vtSlider');
-  if(slider){const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);slider.scrollTo({left:offset,behavior:'smooth'});}
-  const video=card.querySelector('video');
-  const playBtn=card.querySelector('.vt-play');
-  if(video){
-    video.muted=true;
-    video.play().then(()=>{ if(playBtn)playBtn.style.display='none'; }).catch(()=>{});
-    video.onended=()=>{ if(playBtn)playBtn.style.display=''; goToCard((idx+1)%document.querySelectorAll('.vt-card').length); };
-  }
+  if(slider){
+    const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);
+    slider.scrollTo({left:offset,behavior:'smooth'});
+  const vid=card.querySelector('video');if(vid){vid.muted=true;const pb=card.querySelector('.vt-play');vid.play().then(()=>{if(pb)pb.style.opacity='0';}).catch(()=>{});vid.onended=()=>{if(pb)pb.style.opacity='1';goToCard((idx+1)%document.querySelectorAll('.vt-card').length);};}}
 }
+
+function goToCard(idx){
+  const cards=document.querySelectorAll('.vt-card');
+  if(cards[idx]) activateCard(cards[idx]);
 }
 
 // Attach play button listeners after DOM ready
@@ -931,7 +931,7 @@ function closeOverlayBtn(){
 }
 
 // Auto-advance every 5s
-setInterval(()=>{ const activeCard=document.querySelector('.vt-card.active'); const video=activeCard?.querySelector('video'); if(!video||video.paused)goToCard((vtActive+1)%Math.max(vtData.length,document.querySelectorAll('.vt-card').length)); },6000);
+setInterval(()=>{const ac=document.querySelector('.vt-card.active');const v=ac&&ac.querySelector('video');if(!v||v.paused||v.ended)goToCard((vtActive+1)%Math.max(vtData.length,document.querySelectorAll('.vt-card').length));},6000);
 </script>
 <script>
 const SUPABASE_URL = 'https://jaethgobdyjrgeyfeedn.supabase.co'
