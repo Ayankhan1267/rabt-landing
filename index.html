@@ -975,7 +975,7 @@ async function loadDynamicContent() {
       if (slider && testimonials.length > 0) {
         slider.innerHTML = testimonials.map((t, i) => `
           <div class="vt-card ${i===0?'active':''}" data-idx="${i}" onclick="activateCard(this)">
-            <div class="vt-thumb"><img src="${t.image}" alt="${t.name}" onerror="this.style.display='none'"><div class="vt-play">&#9654;</div></div>
+            <div class="vt-thumb">${t.video_url ? `<video src="${t.video_url}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" playsinline muted loop></video>` : `<img src="${t.image}" alt="${t.name}" onerror="this.style.display='none'">`}<div class="vt-play">&#9654;</div></div>
             <div class="vt-info"><div class="vt-stars-sm">${'★'.repeat(t.stars||5)}</div><div class="vt-name">${t.name}</div><div class="vt-skin">${t.skin}</div><div class="vt-quote">"${t.quote}"</div><div class="vt-prod">${t.product}</div></div>
           </div>`).join('')
         if (dots) dots.innerHTML = testimonials.map((_,i) => `<div class="vt-dot ${i===0?'on':''}" onclick="goToCard(${i})"></div>`).join('')
