@@ -880,15 +880,15 @@ let vtActive=0;
 
 function activateCard(card){
   const idx=+card.dataset.idx;
-  document.querySelectorAll('.vt-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.vt-card').forEach(c=>{c.classList.remove('active');const v=c.querySelector('video');if(v){v.pause();}});
   card.classList.add('active');
   vtActive=idx;
   document.querySelectorAll('.vt-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
   const slider=document.getElementById('vtSlider');
-  if(slider){
-    const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);
-    slider.scrollTo({left:offset,behavior:'smooth'});
-  }
+  if(slider){const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);slider.scrollTo({left:offset,behavior:'smooth'});}
+  // Autoplay video if present
+  const video=card.querySelector('video');
+  if(video){video.muted=false;video.play().catch(()=>{video.muted=true;video.play();});}
 }
 
 function goToCard(idx){
@@ -909,19 +909,19 @@ document.querySelectorAll('.vt-card').forEach(card=>{
 });
 
 function openOverlay(idx){
+function openOverlay(idx){
+  const card=document.querySelectorAll('.vt-card')[idx];
+  const video=card?.querySelector('video');
   const d=vtData[idx];
+  if(video){
+    const overlay=document.getElementById('vtOverlay');
+    if(overlay){
+      overlay.innerHTML='<div class="vt-overlay-inner"><div class="vt-close" onclick="closeOverlayBtn()">✕</div><video src="'+video.src+'" style="width:100%;max-height:80vh;border-radius:16px;" autoplay controls playsinline></video></div>';
+      overlay.classList.add('show');document.body.style.overflow='hidden';
+    }
+    return;
+  }
   if(!d)return;
-  document.getElementById('vtOvImg').src=d.img;
-  document.getElementById('vtOvQuote').textContent=d.quote;
-  document.getElementById('vtOvAv').src=d.img;
-  document.getElementById('vtOvAvPh').textContent=d.av;
-  document.getElementById('vtOvName').textContent=d.name;
-  document.getElementById('vtOvSkin').textContent=d.skin;
-  const overlay=document.getElementById('vtOverlay');
-  if(overlay){overlay.classList.add('show');document.body.style.overflow='hidden';}
-}
-
-function closeOverlay(e){
   if(e.target===document.getElementById('vtOverlay')) closeOverlayBtn();
 }
 
