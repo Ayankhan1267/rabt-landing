@@ -880,17 +880,17 @@ let vtActive=0;
 
 function activateCard(card){
   const idx=+card.dataset.idx;
-  document.querySelectorAll('.vt-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.vt-card').forEach(c=>{c.classList.remove('active');const v=c.querySelector('video');if(v){v.pause();v.currentTime=0;}});
   card.classList.add('active');
   vtActive=idx;
   document.querySelectorAll('.vt-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
   const slider=document.getElementById('vtSlider');
-  if(slider){
-    const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);
-    slider.scrollTo({left:offset,behavior:'smooth'});
-  }
+  if(slider){const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);slider.scrollTo({left:offset,behavior:'smooth'});}
+  const video=card.querySelector('video');
+  if(video){video.muted=false;video.volume=1;video.play().catch(()=>{video.muted=true;video.play();});}
+  // Auto advance when video ends
+  if(video){video.onended=()=>goToCard((idx+1)%document.querySelectorAll('.vt-card').length);}
 }
-
 function goToCard(idx){
   const cards=document.querySelectorAll('.vt-card');
   if(cards[idx]) activateCard(cards[idx]);
