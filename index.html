@@ -464,10 +464,10 @@ body{padding-bottom:68px;}
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">
-    <img src="https://rabtnaturals.com/images/logo.png" alt="Rabt Naturals"
+  <div class="nav-logo" style="display:flex;align-items:center;">
+    <img src="https://rabtnaturals.com/images/logo.png" alt="Rabt Naturals" style="height:52px;width:auto;object-fit:contain;"
       onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-    <span style="display:none;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--teal);">rabt <span style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.1em;">NATURALS</span></span>
+    <span style="display:none;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--teal);">rabt <span style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;">NATURALS</span></span>
   </div>
   <a href="https://rabtnaturals.com/skin-analysis" class="nav-cta">Know Your Skin</a>
 </nav>
@@ -888,7 +888,7 @@ function activateCard(card){
   if(slider){
     const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);
     slider.scrollTo({left:offset,behavior:'smooth'});
-  const vid=card.querySelector('video');if(vid){vid.muted=true;const pb=card.querySelector('.vt-play');vid.play().then(()=>{if(pb)pb.style.opacity='0';}).catch(()=>{});vid.onended=()=>{if(pb)pb.style.opacity='1';goToCard((idx+1)%document.querySelectorAll('.vt-card').length);};}}
+  const vid=card.querySelector('video');if(vid){vid.muted=false;const pb=card.querySelector('.vt-play');vid.play().then(()=>{if(pb)pb.style.opacity='0';}).catch(()=>{vid.muted=true;vid.play().then(()=>{if(pb)pb.style.opacity='0';});});vid.onended=()=>{if(pb)pb.style.opacity='1';goToCard((idx+1)%document.querySelectorAll('.vt-card').length);};}}
 }
 
 function goToCard(idx){
