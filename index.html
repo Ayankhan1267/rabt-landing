@@ -880,15 +880,15 @@ let vtActive=0;
 
 function activateCard(card){
   const idx=+card.dataset.idx;
-  document.querySelectorAll('.vt-card').forEach(c=>{c.classList.remove('active');const v=c.querySelector('video');if(v){v.pause();}});
+  document.querySelectorAll('.vt-card').forEach(c=>c.classList.remove('active'));
   card.classList.add('active');
   vtActive=idx;
   document.querySelectorAll('.vt-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
   const slider=document.getElementById('vtSlider');
-  if(slider){const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);slider.scrollTo({left:offset,behavior:'smooth'});}
-  // Autoplay video if present
-  const video=card.querySelector('video');
-  if(video){video.muted=false;video.play().catch(()=>{video.muted=true;video.play();});}
+  if(slider){
+    const offset=card.offsetLeft-(slider.offsetWidth/2)+(card.offsetWidth/2);
+    slider.scrollTo({left:offset,behavior:'smooth'});
+  }
 }
 
 function goToCard(idx){
@@ -909,19 +909,19 @@ document.querySelectorAll('.vt-card').forEach(card=>{
 });
 
 function openOverlay(idx){
-function openOverlay(idx){
-  const card=document.querySelectorAll('.vt-card')[idx];
-  const video=card?.querySelector('video');
   const d=vtData[idx];
-  if(video){
-    const overlay=document.getElementById('vtOverlay');
-    if(overlay){
-      overlay.innerHTML='<div class="vt-overlay-inner"><div class="vt-close" onclick="closeOverlayBtn()">✕</div><video src="'+video.src+'" style="width:100%;max-height:80vh;border-radius:16px;" autoplay controls playsinline></video></div>';
-      overlay.classList.add('show');document.body.style.overflow='hidden';
-    }
-    return;
-  }
   if(!d)return;
+  document.getElementById('vtOvImg').src=d.img;
+  document.getElementById('vtOvQuote').textContent=d.quote;
+  document.getElementById('vtOvAv').src=d.img;
+  document.getElementById('vtOvAvPh').textContent=d.av;
+  document.getElementById('vtOvName').textContent=d.name;
+  document.getElementById('vtOvSkin').textContent=d.skin;
+  const overlay=document.getElementById('vtOverlay');
+  if(overlay){overlay.classList.add('show');document.body.style.overflow='hidden';}
+}
+
+function closeOverlay(e){
   if(e.target===document.getElementById('vtOverlay')) closeOverlayBtn();
 }
 
@@ -934,56 +934,45 @@ function closeOverlayBtn(){
 setInterval(()=>goToCard((vtActive+1)%vtData.length),5000);
 </script>
 <script>
-// Rabt Naturals - Dynamic Content from HQ
 const SUPABASE_URL = 'https://jaethgobdyjrgeyfeedn.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_0NImIRAeX9jzLGjikURSxg_O0JPgnog'
 
 async function loadDynamicContent() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/app_settings?key=eq.landing_content&select=value`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    const res = await fetch(SUPABASE_URL+'/rest/v1/app_settings?key=eq.landing_content&select=value', {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY }
     })
     const data = await res.json()
-    if (!data?.[0]?.value) return
+    if (!data || !data[0] || !data[0].value) return
     const c = JSON.parse(data[0].value)
-
-    // Hero
-    if (c.hero_badge) document.querySelector('.hero-badge')?.childNodes[1] && (document.querySelector('.hero-badge').innerHTML = `<div class="bdot"></div>${c.hero_badge}`)
-    if (c.hero_title) { const h1 = document.querySelector('.hero-h1'); if(h1) h1.innerHTML = c.hero_title.replace('Nature', '<span class="t">Nature</span>') }
-    if (c.hero_subtitle) { const tag = document.querySelector('.hero-tag'); if(tag) tag.textContent = c.hero_subtitle }
-    if (c.hero_desc) { const sub = document.querySelector('.hero-sub'); if(sub) sub.textContent = c.hero_desc }
-    if (c.hero_note) { const note = document.querySelector('.hero-note'); if(note) note.textContent = c.hero_note }
-    if (c.skin_analysis_url) { document.querySelectorAll('a[href*="skin-analysis"]').forEach(a => a.href = c.skin_analysis_url) }
-    if (c.nav_cta) { const navCta = document.querySelector('.nav-cta'); if(navCta) navCta.textContent = c.nav_cta }
+    if (c.hero_badge) { const b = document.querySelector('.hero-badge'); if(b) b.innerHTML = '<div class="bdot"></div>'+c.hero_badge }
+    if (c.hero_title) { const h = document.querySelector('.hero-h1'); if(h) h.innerHTML = c.hero_title.replace('Nature','<span class="t">Nature</span>') }
+    if (c.hero_subtitle) { const s = document.querySelector('.hero-tag'); if(s) s.textContent = c.hero_subtitle }
+    if (c.hero_desc) { const d = document.querySelector('.hero-sub'); if(d) d.textContent = c.hero_desc }
+    if (c.hero_note) { const n = document.querySelector('.hero-note'); if(n) n.textContent = c.hero_note }
     if (c.meta_title) document.title = c.meta_title
-    if (c.meta_desc) { let m = document.querySelector('meta[name="description"]'); if(!m){ m = document.createElement('meta'); m.name='description'; document.head.appendChild(m) } m.content = c.meta_desc }
+    if (c.skin_analysis_url) document.querySelectorAll('a[href*="skin-analysis"]').forEach(a => a.href = c.skin_analysis_url)
+    if (c.nav_cta) { const nc = document.querySelector('.nav-cta'); if(nc) nc.textContent = c.nav_cta }
 
-    // Trust stats
-    const tCards = document.querySelectorAll('.tcard')
-    if (c.trust_stat1_num && tCards[0]) { tCards[0].querySelector('.tsc') && (tCards[0].querySelector('.tsc').textContent = c.trust_stat1_num) }
-    if (c.trust_stat2_num && tCards[1]) { tCards[1].querySelector('.tsc') && (tCards[1].querySelector('.tsc').textContent = c.trust_stat2_num) }
-
-    // Load testimonials
-    const resT = await fetch(`${SUPABASE_URL}/rest/v1/app_settings?key=eq.landing_testimonials&select=value`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    const resT = await fetch(SUPABASE_URL+'/rest/v1/app_settings?key=eq.landing_testimonials&select=value', {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY }
     })
     const testiData = await resT.json()
-    if (testiData?.[0]?.value) {
-      const testimonials = JSON.parse(testiData[0].value)
-      const slider = document.getElementById('vtSlider')
-      const dots = document.querySelector('.vt-dots')
-      if (slider && testimonials.length > 0) {
-        slider.innerHTML = testimonials.map((t, i) => `
-          <div class="vt-card ${i===0?'active':''}" data-idx="${i}" onclick="activateCard(this)">
-            <div class="vt-thumb">${t.video_url ? `<video src="${t.video_url}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" playsinline muted loop></video>` : `<img src="${t.image}" alt="${t.name}" onerror="this.style.display='none'">`}<div class="vt-play">&#9654;</div></div>
-            <div class="vt-info"><div class="vt-stars-sm">${'★'.repeat(t.stars||5)}</div><div class="vt-name">${t.name}</div><div class="vt-skin">${t.skin}</div><div class="vt-quote">"${t.quote}"</div><div class="vt-prod">${t.product}</div></div>
-          </div>`).join('')
-        if (dots) dots.innerHTML = testimonials.map((_,i) => `<div class="vt-dot ${i===0?'on':''}" onclick="goToCard(${i})"></div>`).join('')
-      }
+    if (!testiData || !testiData[0] || !testiData[0].value) return
+    const testimonials = JSON.parse(testiData[0].value)
+    const slider = document.getElementById('vtSlider')
+    const dots = document.querySelector('.vt-dots')
+    if (slider && testimonials.length > 0) {
+      slider.innerHTML = testimonials.map((t, i) => {
+        const media = t.video_url
+          ? '<video src="'+t.video_url+'" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" playsinline muted loop></video>'
+          : '<img src="'+t.image+'" alt="'+t.name+'" onerror="this.style.display=\'none\'">'
+        return '<div class="vt-card '+(i===0?'active':'')+'" data-idx="'+i+'" data-video="'+(t.video_url||'')+'" onclick="activateCard(this)"><div class="vt-thumb">'+media+'<div class="vt-play">&#9654;</div></div><div class="vt-info"><div class="vt-stars-sm">'+('★'.repeat(t.stars||5))+'</div><div class="vt-name">'+t.name+'</div><div class="vt-skin">'+t.skin+'</div><div class="vt-quote">"'+t.quote+'"</div><div class="vt-prod">'+t.product+'</div></div></div>'
+      }).join('')
+      if (dots) dots.innerHTML = testimonials.map((_,i) => '<div class="vt-dot '+(i===0?'on':'')+'" onclick="goToCard('+i+')"></div>').join('')
     }
   } catch(e) { console.log('Content load error:', e) }
 }
-
 document.addEventListener('DOMContentLoaded', loadDynamicContent)
 </script>
 </body>
