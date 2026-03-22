@@ -970,6 +970,17 @@ async function loadDynamicContent() {
         return '<div class="vt-card '+(i===0?'active':'')+'" data-idx="'+i+'" data-video="'+(t.video_url||'')+'" onclick="activateCard(this)"><div class="vt-thumb">'+media+'<div class="vt-play">&#9654;</div></div><div class="vt-info"><div class="vt-stars-sm">'+('★'.repeat(t.stars||5))+'</div><div class="vt-name">'+t.name+'</div><div class="vt-skin">'+t.skin+'</div><div class="vt-quote">"'+t.quote+'"</div><div class="vt-prod">'+t.product+'</div></div></div>'
       }).join('')
       if (dots) dots.innerHTML = testimonials.map((_,i) => '<div class="vt-dot '+(i===0?'on':'')+'" onclick="goToCard('+i+')"></div>').join('')
+      // Reattach play button listeners after rebuilding innerHTML
+      document.querySelectorAll('.vt-card').forEach(card=>{
+        const playBtn=card.querySelector('.vt-play');
+        if(playBtn){
+          playBtn.addEventListener('click',function(e){
+            e.stopPropagation();
+            activateCard(card);
+            setTimeout(()=>openOverlay(+card.dataset.idx),200);
+          });
+        }
+      });
     }
   } catch(e) { console.log('Content load error:', e) }
 }
